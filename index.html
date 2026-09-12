@@ -30,7 +30,7 @@ select,input[type=password],input[type=text]{width:100%;background:#0a1a2c;color
 @media(max-width:900px){.grid{grid-template-columns:1fr}.topbar{padding:10px 12px}.brand span{display:none}.wrap{padding:26px 14px}.hero h1{font-size:28px}.settingsBtn{padding:9px 11px}}
 
 .drop{min-height:170px}.dragging{border-color:var(--cyan);background:#102b45}.queue-toolbar{margin:14px 0;flex-wrap:wrap}#queueList{max-height:530px;overflow:auto;contain:content}.queue-item{padding:12px;margin:8px 0;border:1px solid var(--line);border-radius:12px}.queue-item.selected{border-color:var(--cyan);background:#10243b}.file-select{display:block;width:100%;text-align:left;border:0;background:none;color:var(--text);font-weight:700;overflow-wrap:anywhere;cursor:pointer;padding:4px 0}.queue-note{color:#ffd28c;font-size:14px;overflow-wrap:anywhere;margin:5px 0}progress{width:100%;height:8px;accent-color:var(--cyan)}button:disabled{opacity:.45;cursor:not-allowed}.actions{flex-wrap:wrap}.result-head{gap:12px;flex-wrap:wrap}#resultTitle{overflow-wrap:anywhere;max-width:100%}.modalbox{max-height:90vh;overflow:auto}.hint{font-size:14px}button:focus-visible,.drop:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}.card{min-width:0}.status{overflow-wrap:anywhere}@media(max-width:600px){.topbar{flex-wrap:wrap;gap:8px}.nav{order:3;flex-basis:100%}.settingsBtn{margin-left:auto}.wrap{padding-top:20px}.hero h1{font-size:26px}.actions .secondary{font-size:14px}}
-</style>
+.connection-box{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px;background:#10243b;border:1px solid #31516f;border-radius:12px;margin-bottom:18px;overflow-wrap:anywhere}#testLine{white-space:pre-wrap;color:#ffd28c}#testBtn{background:#175cc0;font-weight:800}</style>
 </head>
 <body>
 <header class="topbar">
@@ -49,7 +49,7 @@ select,input[type=password],input[type=text]{width:100%;background:#0a1a2c;color
 
 <main class="wrap">
 <section class="tab active" id="tab-transcript">
-  <div class="hero"><h1>✨ Auto Transcript Studio</h1><p>Upload video/audio to Gemini Files API and generate a transcript.</p></div>
+  <div class="hero"><h1>✨ Auto Transcript Studio <span class="pill">v6.1 · connection fix</span></h1><p>Upload video/audio to Gemini Files API and generate a transcript.</p></div>
   <div class="notice"><b>1. Connect in Settings → 2. Add files → 3. Process queue.</b> Add as many MP4 files as you need; there is no app-imposed file-count limit. Gemini limits each file to 2 GB and project storage to 20 GB. Keep this tab open while processing.</div>
   <div class="grid">
     <div class="card">
@@ -63,7 +63,7 @@ select,input[type=password],input[type=text]{width:100%;background:#0a1a2c;color
       <div class="row between queue-toolbar"><button class="secondary" id="prevPage">Previous</button><span id="pageLabel" class="muted"></span><button class="secondary" id="nextPage">Next</button></div>
     </div>
     <div class="card">
-      <label class="label" for="language">Output language</label>
+      <div class="connection-box"><strong id="connectionState">Gemini is not connected</strong><button class="secondary" id="connectBtn">Connect Gemini</button></div><label class="label" for="language">Output language</label>
       <select id="language">
         <option>Myanmar</option><option>English</option><option>Thai</option><option>Chinese</option><option>Japanese</option><option>Korean</option>
       </select>
@@ -116,13 +116,13 @@ select,input[type=password],input[type=text]{width:100%;background:#0a1a2c;color
   <div class="modalbox" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
     <div class="row between"><h2 id="settingsTitle">⚙ Wandee Recap Settings</h2><button class="secondary" id="closeSettings">✕</button></div>
     <label class="label" for="apiKey">Gemini API Key</label>
-    <input type="password" id="apiKey" placeholder="Paste your Gemini API key here">
+    <input type="password" id="apiKey" autocomplete="off" spellcheck="false" placeholder="Paste your full Gemini API key here">
     <p class="hint">For this personal GitHub Pages version the key is kept in your browser. Do not use this on a shared computer, and do not put the key inside GitHub source code.</p>
     <label class="row" style="margin:12px 0"><input type="checkbox" id="rememberKey"> Remember on this device</label>
     <label class="label" for="model">Gemini model</label>
-    <select id="model" aria-label="Gemini model"><option value="">Test connection to load available models</option></select>
-    <div class="row" style="margin-top:15px"><button class="secondary" id="testBtn">Test Connection</button><button class="secondary" id="saveBtn">Save</button></div>
-    <div class="testline" id="testLine">Not tested yet.</div>
+    <select id="model" aria-label="Gemini model"><option value="">Automatic: connect to choose a model</option></select>
+    <div class="row" style="margin-top:15px"><button class="secondary" id="testBtn">Connect &amp; save</button><button class="secondary danger" id="clearKey">Forget key</button></div>
+    <p class="hint"><a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" style="color:#79b9ff">Get a Gemini API key</a> · <a href="https://ai.google.dev/gemini-api/docs/available-regions" target="_blank" rel="noopener noreferrer" style="color:#79b9ff">Supported regions</a></p><div class="testline" id="testLine" role="status" aria-live="polite">Paste your key and click Connect &amp; save. An available model is selected automatically.</div>
   </div>
 </div>
 
@@ -131,7 +131,7 @@ select,input[type=password],input[type=text]{width:100%;background:#0a1a2c;color
 const $ = id => document.getElementById(id);
 const API = 'https://generativelanguage.googleapis.com';
 const MAX_FILE = 2 * 1024 ** 3;
-const state = {items: [], selected: null, busy: false, controller: null, apiKey: '', model: '', page: 0};
+const state = {items: [], selected: null, busy: false, connecting: false, controller: null, apiKey: '', model: '', page: 0};
 const store = {
   get(name, persistent = false) { try { return (persistent ? localStorage : sessionStorage).getItem(name) || ''; } catch { return ''; } },
   set(name, value, persistent = false) { try { const s = persistent ? localStorage : sessionStorage; value ? s.setItem(name, value) : s.removeItem(name); } catch {} }
@@ -140,11 +140,13 @@ state.apiKey = store.get('wandee_key') || store.get('wandee_key', true);
 state.model = store.get('wandee_model', true);
 function humanSize(n) { const u = ['B','KB','MB','GB']; let i = 0; while(n >= 1024 && i < 3) { n /= 1024; i++; } return n.toFixed(i ? 1 : 0) + ' ' + u[i]; }
 function setStatus(text, kind = '') { $('status').textContent = text; $('status').className = 'status ' + kind; }
-function openSettings() { $('apiKey').value = state.apiKey; $('rememberKey').checked = !!store.get('wandee_key', true); $('settingsModal').classList.add('show'); $('apiKey').focus(); }
-function needKey() { if(state.apiKey && state.model) return true; setStatus('Open Settings, test your key, and choose an available model.', 'bad'); openSettings(); return false; }
+function normalizeKey(value) { return value.trim().replace(/^['"`]+|['"`]+$/g, '').replace(/\\_/g, '_').replace(/\s/g, ''); }
+function openSettings() { if(!$('apiKey').value) $('apiKey').value = state.apiKey; $('rememberKey').checked = !!store.get('wandee_key', true); $('settingsModal').classList.add('show'); $('apiKey').focus(); }
+function needKey() { if(state.apiKey && state.model) return true; setStatus('Connect Gemini first: paste your key and click Connect & save. The app chooses an available model.', 'bad'); openSettings(); return false; }
 function setTab(name) { document.querySelectorAll('.tab').forEach(e => e.classList.toggle('active', e.id === 'tab-' + name)); document.querySelectorAll('#nav button').forEach(e => e.classList.toggle('active', e.dataset.tab === name)); }
 document.querySelectorAll('#nav button').forEach(b => b.onclick = () => setTab(b.dataset.tab));
 $('settingsBtn').onclick = openSettings;
+$('connectBtn').onclick = openSettings;
 $('closeSettings').onclick = () => $('settingsModal').classList.remove('show');
 $('settingsModal').onclick = e => { if(e.target === $('settingsModal')) $('closeSettings').click(); };
 document.addEventListener('keydown', e => { if(e.key === 'Escape') $('closeSettings').click(); });
@@ -172,13 +174,27 @@ async function request(path, options = {}, apiKey = state.apiKey, signal, retry 
       await delay(Number.isFinite(seconds) && seconds > 0 ? Math.min(seconds * 1000, 60000) : 2000 * 2 ** attempt, signal);
       continue;
     }
-    throw new Error(data.error?.message || 'Gemini request failed (HTTP ' + response.status + ').');
+    const providerMessage = String(data.error?.message || 'Gemini request failed.').split(apiKey).join('[redacted]');
+    let hint = '';
+    if(/location.*not supported|unsupported.*location/i.test(providerMessage)) hint = ' Gemini does not support the location of this request. Check Google\'s supported regions; changing the model will not fix this.';
+    else if(/leaked/i.test(providerMessage)) hint = ' Create a replacement key in Google AI Studio and reconnect.';
+    else if(response.status === 401 || /API key not valid|API_KEY_INVALID/i.test(providerMessage)) hint = ' Copy the full Gemini API key from Google AI Studio and reconnect.';
+    else if(response.status === 403) hint = ' Check this key\'s project permissions and API restrictions in Google AI Studio.';
+    else if(response.status === 429) hint = ' Check the project quota or wait before retrying.';
+    const error = new Error(`Google API (${response.status}): ${providerMessage}${hint}`); error.status = response.status; throw error;
   }
 }
+function persistConnection(k, model) {
+  state.apiKey = k; state.model = model;
+  store.set('wandee_key', k); store.set('wandee_key', $('rememberKey').checked ? k : '', true); store.set('wandee_model', model, true);
+}
 $('testBtn').onclick = async () => {
-  const k = $('apiKey').value.trim();
-  if(!k) { $('testLine').textContent = 'Paste an API key first.'; return; }
-  $('testBtn').disabled = true; $('testLine').textContent = 'Checking available models…';
+  if(state.busy || state.connecting) return;
+  const k = normalizeKey($('apiKey').value);
+  if(!k) { $('testLine').textContent = 'Paste your Gemini API key first.'; $('apiKey').focus(); return; }
+  const preferred = $('model').value || state.model;
+  $('apiKey').value = k;
+  state.connecting = true; render(); $('testLine').textContent = 'Checking Google and choosing an available model…';
   try {
     const models = []; let token = '';
     do { const {data} = await request('/v1beta/models?pageSize=1000' + (token ? '&pageToken=' + encodeURIComponent(token) : ''), {}, k); models.push(...(data.models || [])); token = data.nextPageToken || ''; } while(token);
@@ -186,16 +202,25 @@ $('testBtn').onclick = async () => {
     if(!usable.length) throw new Error('No text/video generation models are available for this key.');
     usable.sort((a,b) => Number(/flash/.test(b.name)) - Number(/flash/.test(a.name)) || a.name.localeCompare(b.name));
     $('model').replaceChildren(...usable.map(m => new Option(m.displayName + ' (' + m.name.replace('models/','') + ')', m.name.replace('models/',''))));
-    if(usable.some(m => m.name === 'models/' + state.model)) $('model').value = state.model;
-    $('testLine').textContent = 'Connected. Choose a model (Flash usually prioritizes speed), then Save. Availability for video depends on the model.';
-  } catch(e) { $('testLine').textContent = e.message; } finally { $('testBtn').disabled = false; }
+    const selected = usable.some(m => m.name === 'models/' + preferred) ? preferred : usable[0].name.replace('models/','');
+    $('model').value = selected;
+    persistConnection(k, selected);
+    $('testLine').textContent = 'Connection saved. You can change the model below; changes are saved automatically.';
+    $('closeSettings').click(); setStatus('Connected and saved. Add files, then click Process queue.', 'good');
+  } catch(e) { const message = e instanceof TypeError ? 'Could not reach Google. Check your connection, browser restrictions, and whether this page is served over HTTPS.' : e.message; $('testLine').textContent = message; setStatus(message, 'bad'); }
+  finally { state.connecting = false; render(); }
 };
 if(state.model) { $('model').add(new Option(state.model, state.model)); $('model').value = state.model; }
-$('saveBtn').onclick = () => {
-  if(state.busy) return;
-  state.apiKey = $('apiKey').value.trim(); state.model = $('model').value;
-  store.set('wandee_key', state.apiKey); store.set('wandee_key', $('rememberKey').checked ? state.apiKey : '', true); store.set('wandee_model', state.model, true);
-  $('closeSettings').click(); setStatus(state.apiKey && state.model ? 'Ready. Add files and process the queue.' : 'Test your API key and select a model in Settings.');
+$('model').onchange = () => {
+  if(state.busy || state.connecting || !state.apiKey || !$('model').value) return;
+  state.model = $('model').value; store.set('wandee_model', state.model, true); render();
+  $('testLine').textContent = 'Model selection saved. Close Settings to continue.';
+};
+$('rememberKey').onchange = () => { if(state.apiKey) store.set('wandee_key', $('rememberKey').checked ? state.apiKey : '', true); };
+$('clearKey').onclick = () => {
+  if(state.busy || state.connecting) return;
+  persistConnection('', ''); $('apiKey').value = ''; $('model').replaceChildren(new Option('Automatic: connect to choose a model', ''));
+  $('testLine').textContent = 'Saved connection removed. Paste a key and click Connect & save.'; render();
 };
 const mimeTypes = {mp4:'video/mp4', m4v:'video/mp4', mov:'video/quicktime', webm:'video/webm', mpeg:'video/mpeg', mpg:'video/mpeg', avi:'video/x-msvideo', mp3:'audio/mpeg', wav:'audio/wav', m4a:'audio/mp4', aac:'audio/aac', flac:'audio/flac', ogg:'audio/ogg'};
 function mediaType(file) { return mimeTypes[file.name.split('.').pop().toLowerCase()] || (/^(video|audio)\//.test(file.type) ? file.type : ''); }
@@ -236,9 +261,12 @@ function render() {
   }));
   $('pageLabel').textContent = state.items.length ? `Page ${state.page+1} / ${Math.ceil(state.items.length/40)}` : 'No files yet';
   $('prevPage').disabled = state.page === 0; $('nextPage').disabled = (state.page+1)*40 >= state.items.length;
-  $('processBtn').disabled = state.busy || !state.items.some(i => i.status !== 'Done');
+  $('connectionState').textContent = state.apiKey && state.model ? 'Saved connection · ' + state.model : 'Gemini is not connected';
+  $('connectBtn').textContent = state.apiKey && state.model ? 'Connection settings' : 'Connect Gemini';
+  $('processBtn').disabled = state.busy || state.connecting || !state.items.some(i => i.status !== 'Done');
   $('stopBtn').disabled = !state.busy; $('clearQueue').disabled = state.busy || !state.items.length;
-  ['saveBtn','language','cleanup'].forEach(id => $(id).disabled = state.busy);
+  ['testBtn','clearKey','apiKey','model','rememberKey'].forEach(id => $(id).disabled = state.busy || state.connecting);
+  ['language','cleanup'].forEach(id => $(id).disabled = state.busy);
   $('downloadAll').disabled = !state.items.some(i => i.text);
 }
 $('prevPage').onclick = () => { state.page--; render(); }; $('nextPage').onclick = () => { state.page++; render(); };
