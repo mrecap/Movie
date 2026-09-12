@@ -1,7 +1,105 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wandee Recap</title>
-<style>html,body{margin:0;height:100%;background:#071120;color:#fff;font-family:system-ui}iframe{border:0;width:100%;height:100vh}#setup{max-width:760px;margin:12vh auto;padding:28px;background:#0d1829;border:1px solid #26364f;border-radius:18px}code{color:#4dd8ff}</style></head>
-<body><div id="setup"><h1>Wandee Recap</h1><p>Set your Apps Script Web App URL in <code>config.js</code>, then this GitHub Pages site will open the full app.</p></div>
-<script src="config.js"></script><script>
-if(window.WANDEE_APPS_SCRIPT_URL&&WANDEE_APPS_SCRIPT_URL.indexOf('https://script.google.com/')===0){document.body.innerHTML='<iframe allow="clipboard-read; clipboard-write" src="'+WANDEE_APPS_SCRIPT_URL+'"></iframe>'}
-</script></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wandee Recap</title>
+  <meta name="theme-color" content="#07111f" />
+  <style>
+    :root{--bg:#07111f;--panel:#0b1728;--panel2:#0d1c30;--line:#243a55;--muted:#89a1c1;--text:#eef6ff;--cyan:#1fc7ff;--blue:#3478ff;--pink:#ff3dcc;--purple:#7b35e8;--green:#1ed7ac;--orange:#ffac2d;--danger:#ff5f77}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 50% -20%,#10244a 0,#07111f 42%,#050d18 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;min-height:100vh}.wrap{max-width:1280px;margin:auto;padding:0 24px 48px}.top{position:sticky;top:0;z-index:20;background:rgba(5,13,24,.94);backdrop-filter:blur(14px);border-bottom:1px solid #182943}.topin{max-width:1380px;margin:auto;padding:14px 22px;display:flex;align-items:center;gap:16px}.brand{font-size:21px;font-weight:800;background:linear-gradient(90deg,#4be0ff,#8f75ff);-webkit-background-clip:text;color:transparent;white-space:nowrap}.logo{width:42px;height:42px;border:1px solid #09baf5;border-radius:11px;display:grid;place-items:center;color:#43d9ff;font-weight:900;background:#071526}.tabs{display:flex;gap:5px;border:1px solid #1d304c;border-radius:23px;padding:4px;overflow:auto;flex:1}.tab{border:0;background:transparent;color:#a5b7ce;padding:10px 14px;border-radius:19px;white-space:nowrap;font-weight:700;cursor:pointer}.tab.active{background:linear-gradient(90deg,#14b9ef,#3676ff);color:#fff}.hero{text-align:center;padding:42px 0 24px}.hero h1{margin:0;font-size:32px;background:linear-gradient(90deg,#ff4bdd,#b15cff);-webkit-background-clip:text;color:transparent}.hero p{color:#a8c4e2;margin:10px 0 0}.notice{border:1px solid #8230bb;background:#23123e;color:#e9c2ff;border-radius:15px;padding:16px 18px;margin:0 0 20px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.panel{border:1px solid #233b59;background:linear-gradient(180deg,#0b1728,#091524);border-radius:16px;padding:18px}.drop{height:280px;border:1px dashed #315474;border-radius:16px;display:grid;place-items:center;text-align:center;cursor:pointer;transition:.2s;padding:20px}.drop:hover,.drop.drag{border-color:#2ecdfb;background:#0c1d32}.cloud{font-size:52px;opacity:.62}.drop b{display:block;font-size:18px;margin:10px 0}.drop small{color:#6591bd}.filecard{display:none;margin-top:14px;padding:12px;border:1px solid #27415f;border-radius:12px;background:#081425}.filecard.show{display:block}.row{display:flex;justify-content:space-between;gap:12px;align-items:center}.bar{height:10px;background:#152840;border-radius:999px;overflow:hidden;margin-top:10px}.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#12c6ec,#7b45ff,#fa3db6);transition:width .15s}.label{font-weight:800;margin-bottom:8px}.select,.input,.textarea{width:100%;background:#081425;border:1px solid #294361;color:#fff;border-radius:11px;padding:13px 14px;outline:none}.textarea{min-height:310px;resize:vertical;line-height:1.6}.btn{width:100%;border:0;border-radius:11px;padding:15px 18px;font-size:17px;color:white;font-weight:900;cursor:pointer;margin-top:15px;background:linear-gradient(90deg,#6f2bd2,#b81f70)}.btn:disabled{opacity:.45;cursor:not-allowed}.btn.alt{background:linear-gradient(90deg,#1268e9,#12a7bd)}.btn.green{background:linear-gradient(90deg,#087f75,#10a47f)}.status{margin-top:12px;color:#94b3d4;font-size:14px;min-height:22px}.out{margin-top:22px}.outtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.mini{border:1px solid #31506e;background:#0b1a2c;color:#d8e9fb;padding:8px 11px;border-radius:9px;cursor:pointer}.hidden{display:none!important}.controls{display:grid;gap:15px}.pillrow{display:flex;gap:8px;flex-wrap:wrap}.pill{background:#091527;border:1px solid #29415d;color:#c4d7ec;border-radius:9px;padding:9px 12px;cursor:pointer}.pill.on{border-color:#e04386;color:#fff;background:#3a1730}.footer{color:#55799e;text-align:center;padding:30px 0 0;font-size:13px}@media(max-width:850px){.grid{grid-template-columns:1fr}.topin{align-items:flex-start}.brand{display:none}.hero{padding-top:26px}.wrap{padding-left:14px;padding-right:14px}.drop{height:220px}.tabs{border-radius:14px}.tab{padding:9px 11px}}
+  </style>
+</head>
+<body>
+<div class="top"><div class="topin"><div class="logo">WR</div><div class="brand">Wandee Recap</div><div class="tabs">
+<button class="tab" data-page="voice">🔊 Voiceover</button><button class="tab active" data-page="transcript">✨ Auto Transcript</button><button class="tab" data-page="srt">▣ SRT Generator</button><button class="tab" data-page="script">📜 Script Writer</button><button class="tab" data-page="translate">🌐 Shorts Translator</button><button class="tab" data-page="thumbnail">🖼 Thumbnail Maker</button><button class="tab" data-page="logo">◇ Logo Remover</button>
+</div></div></div>
+<div class="wrap">
+  <div class="hero"><h1 id="title">✨ Auto Transcript Studio</h1><p id="sub">Upload large video/audio directly to Gemini Files API and generate a transcript.</p></div>
+  <div class="notice">Large-file mode: the selected media is uploaded <b>directly from your browser to Gemini</b> using a resumable upload session. File bytes do not pass through Apps Script. Maximum is <b>2 GB per file</b>, subject to your Gemini project quotas.</div>
+
+  <section id="mediaPage">
+    <div class="grid">
+      <div class="panel">
+        <div class="label">Video / Audio</div>
+        <div id="drop" class="drop"><div><div class="cloud">☁</div><b>Click to upload or drag and drop</b><small>MP4, WebM, MOV, MPEG, MP3, WAV, M4A • up to 2 GB</small></div></div>
+        <input id="file" type="file" hidden accept="video/mp4,video/webm,video/quicktime,video/mpeg,audio/mpeg,audio/wav,audio/x-wav,audio/mp4,.m4a,.mp3,.wav,.mp4,.webm,.mov,.mpeg,.mpg" />
+        <div id="filecard" class="filecard"><div class="row"><div><b id="fname"></b><div id="fmeta" style="color:#7799bc;font-size:13px;margin-top:3px"></div></div><button class="mini" id="clear">Clear</button></div><div class="bar"><i id="progress"></i></div><div id="uploadText" class="status"></div></div>
+      </div>
+      <div class="panel controls">
+        <div><div class="label">Output Language</div><select id="lang" class="select"><option>Myanmar</option><option>English</option><option>Thai</option><option>Chinese</option><option>Japanese</option><option>Korean</option></select></div>
+        <div id="scriptControls" class="hidden"><div class="label">Script Style</div><select id="style" class="select"><option>Movie Recap</option><option>Cinematic Documentary</option><option>Short-form Recap</option><option>Storytelling Commentary</option></select><div class="label" style="margin-top:14px">Target Length</div><select id="duration" class="select"><option value="original">Original translation / natural length</option><option value="150 words">~150 words</option><option value="300 words">~300 words</option><option value="450 words">~450 words</option><option value="750 words">~750 words</option><option value="1500 words">~1500 words</option></select></div>
+        <button id="go" class="btn">✨ Generate Transcript</button><div id="status" class="status">Choose a file to begin.</div>
+      </div>
+    </div>
+    <div class="panel out"><div class="outtop"><div class="label" id="outLabel">Transcript</div><div><button class="mini" id="copy">Copy</button> <button class="mini" id="download">Download</button></div></div><textarea id="output" class="textarea" placeholder="Result appears here..."></textarea></div>
+  </section>
+
+  <section id="simplePage" class="hidden"><div class="panel"><h2 id="simpleHeading" style="margin-top:0"></h2><p id="simpleText" style="color:#91abc8;line-height:1.7"></p><p style="color:#6f91b5">This large-file upgrade package focuses on Transcript, SRT, Script Writer and Translator. Keep your existing Voiceover / Thumbnail / Logo-remover implementation, or merge those UI sections into this file.</p></div></section>
+  <div class="footer">Wandee Recap • GitHub Pages + Google Apps Script control API + direct Gemini resumable upload</div>
+</div>
+<script src="config.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const MAX = 2 * 1024 * 1024 * 1024;
+  const CHUNK = 8 * 1024 * 1024; // 8 MiB, divisible by 256 KiB.
+  let selected = null, uploaded = null, page = 'transcript', busy = false;
+  const defs = {
+    transcript:{title:'✨ Auto Transcript Studio',sub:'Upload large video/audio directly to Gemini Files API and generate a transcript.',button:'✨ Generate Transcript',out:'Transcript',task:'transcript'},
+    srt:{title:'▣ SRT Generator',sub:'Create editable subtitle text from large video or audio files.',button:'▣ Generate SRT',out:'SRT Subtitles',task:'srt'},
+    script:{title:'📜 AI Script Writer',sub:'Analyze a full video and create a recap narration script.',button:'📜 Generate Script',out:'Generated Script',task:'script'},
+    translate:{title:'🌐 Multi-Language Shorts Translator',sub:'Transcribe and translate media into subtitle format.',button:'🌐 Translate to SRT',out:'Translated SRT',task:'translateSrt'}
+  };
+
+  document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>switchPage(b.dataset.page,b)));
+  function switchPage(p,b){
+    document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b)); page=p;
+    if(defs[p]){$('mediaPage').classList.remove('hidden');$('simplePage').classList.add('hidden');const d=defs[p];$('title').textContent=d.title;$('sub').textContent=d.sub;$('go').textContent=d.button;$('outLabel').textContent=d.out;$('scriptControls').classList.toggle('hidden',p!=='script');}
+    else{$('mediaPage').classList.add('hidden');$('simplePage').classList.remove('hidden');const map={voice:['🔊 Voiceover Studio','Keep the voiceover module from your existing version.'],thumbnail:['🖼 Thumbnail Maker','Keep the thumbnail module from your existing version.'],logo:['◇ Logo Remover','Keep the logo-remover module from your existing version.']};$('title').textContent=map[p][0];$('sub').textContent=map[p][1];$('simpleHeading').textContent=map[p][0];$('simpleText').textContent='This page is not changed by the 2 GB uploader patch.';}
+  }
+
+  const drop=$('drop'), file=$('file'); drop.onclick=()=>!busy&&file.click();
+  ['dragenter','dragover'].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.add('drag')}));
+  ['dragleave','drop'].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.remove('drag')}));
+  drop.addEventListener('drop',e=>choose(e.dataTransfer.files[0])); file.addEventListener('change',()=>choose(file.files[0]));
+  $('clear').onclick=()=>{if(busy)return;selected=null;uploaded=null;file.value='';$('filecard').classList.remove('show');$('progress').style.width='0';$('status').textContent='Choose a file to begin.'};
+
+  function choose(f){
+    if(!f)return;if(f.size>MAX){alert('This file is larger than Gemini Files API 2 GB maximum.');return;}
+    selected=f;uploaded=null;$('fname').textContent=f.name;$('fmeta').textContent=pretty(f.size)+' • '+mimeFor(f);$('filecard').classList.add('show');$('progress').style.width='0';$('uploadText').textContent='Ready to upload.';$('status').textContent='Ready. Click Generate.';
+  }
+  function pretty(n){const u=['B','KB','MB','GB'];let i=0;while(n>=1024&&i<3){n/=1024;i++}return n.toFixed(i?1:0)+' '+u[i]}
+  function mimeFor(f){if(f.type)return f.type;const x=f.name.toLowerCase();if(x.endsWith('.mp4'))return'video/mp4';if(x.endsWith('.webm'))return'video/webm';if(x.endsWith('.mov'))return'video/quicktime';if(x.endsWith('.mpeg')||x.endsWith('.mpg'))return'video/mpeg';if(x.endsWith('.mp3'))return'audio/mpeg';if(x.endsWith('.wav'))return'audio/wav';if(x.endsWith('.m4a'))return'audio/mp4';return'application/octet-stream'}
+
+  function api(params){return new Promise((resolve,reject)=>{
+    const base=(window.WANDEE_APPS_SCRIPT_URL||'').trim(); if(!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec/.test(base)){reject(new Error('Set WANDEE_APPS_SCRIPT_URL in config.js first.'));return;}
+    const cb='wr_'+Date.now()+'_'+Math.random().toString(36).slice(2); const s=document.createElement('script'); let timer;
+    window[cb]=(r)=>{clearTimeout(timer);delete window[cb];s.remove();r&&r.ok?resolve(r.data):reject(new Error((r&&r.error)||'Apps Script API error'));};
+    const q=new URLSearchParams({...params,callback:cb,_:Date.now()});s.src=base+'?'+q.toString();s.onerror=()=>{clearTimeout(timer);delete window[cb];s.remove();reject(new Error('Could not reach Apps Script. Check deployment access and URL.'));};document.head.appendChild(s);timer=setTimeout(()=>{if(window[cb]){delete window[cb];s.remove();reject(new Error('Apps Script request timed out.'));}},60000);
+  })}
+
+  async function ensureUploaded(){
+    if(uploaded)return uploaded;if(!selected)throw new Error('Choose a video or audio file first.');
+    $('uploadText').textContent='Creating secure Gemini upload session…';$('progress').style.width='1%';
+    const session=await api({action:'startUpload',filename:selected.name,size:selected.size,mime:mimeFor(selected)});
+    $('uploadText').textContent='Uploading directly to Gemini…';
+    const info=await uploadChunks(session.uploadUrl,selected);
+    let f=info.file||info; if(!f.name||!f.uri)throw new Error('Gemini upload finished but file metadata was missing.');
+    uploaded={name:f.name,uri:f.uri,mime:f.mimeType||f.mime_type||mimeFor(selected),state:(f.state&&f.state.name)||f.state||''};
+    $('uploadText').textContent='Upload complete. Gemini is processing the media…';
+    await waitActive(uploaded.name);$('progress').style.width='100%';$('uploadText').textContent='Ready for AI processing.';return uploaded;
+  }
+
+  async function uploadChunks(url,f){let offset=0,last=null;while(offset<f.size){const end=Math.min(offset+CHUNK,f.size), blob=f.slice(offset,end), final=end===f.size;last=await sendChunk(url,blob,offset,final,(loaded)=>{const pct=((offset+loaded)/f.size)*100;$('progress').style.width=Math.min(99,pct).toFixed(2)+'%';$('uploadText').textContent='Uploading '+pretty(offset+loaded)+' / '+pretty(f.size)+' ('+pct.toFixed(1)+'%)';});offset=end;}return last||{};}
+  function sendChunk(url,blob,offset,final,onProgress){return new Promise((resolve,reject)=>{const x=new XMLHttpRequest();x.open('POST',url,true);x.setRequestHeader('X-Goog-Upload-Offset',String(offset));x.setRequestHeader('X-Goog-Upload-Command',final?'upload, finalize':'upload');x.setRequestHeader('Content-Type','application/octet-stream');x.upload.onprogress=e=>{if(e.lengthComputable)onProgress(e.loaded)};x.onerror=()=>reject(new Error('Direct Gemini upload was blocked by the browser/network (CORS or connection error).'));x.onload=()=>{if(x.status>=200&&x.status<300){if(final){try{resolve(JSON.parse(x.responseText||'{}'))}catch(e){reject(new Error('Gemini finalize response was not valid JSON.'))}}else resolve({})}else reject(new Error('Gemini upload failed HTTP '+x.status+': '+(x.responseText||'').slice(0,700)));};x.send(blob);});}
+  async function waitActive(name){for(let i=0;i<90;i++){const s=await api({action:'fileStatus',name});const state=(s.state&&s.state.name)||s.state||'';if(state==='ACTIVE'||!state)return s;if(state==='FAILED')throw new Error('Gemini could not process this media file.');$('status').textContent='Gemini processing: '+state+'…';await new Promise(r=>setTimeout(r,2000));}throw new Error('Gemini file processing took too long. Try again shortly.');}
+
+  $('go').onclick=async()=>{if(busy)return;busy=true;$('go').disabled=true;$('output').value='';try{const f=await ensureUploaded();$('status').textContent='Generating '+defs[page].out+'…';const r=await api({action:'generate',task:defs[page].task,fileUri:f.uri,mime:f.mime,language:$('lang').value,style:$('style').value,duration:$('duration').value});$('output').value=r.text||'';$('status').textContent='Done.';}catch(e){console.error(e);$('status').textContent='Error: '+e.message;alert(e.message);}finally{busy=false;$('go').disabled=false;}};
+  $('copy').onclick=async()=>{await navigator.clipboard.writeText($('output').value||'');$('status').textContent='Copied.'};
+  $('download').onclick=()=>{const txt=$('output').value;if(!txt)return;const ext=(page==='srt'||page==='translate')?'srt':'txt';const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain;charset=utf-8'}));a.download='wandee-'+page+'.'+ext;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+  api({action:'ping'}).then(()=>{$('status').textContent='Backend connected. Choose a file.'}).catch(e=>{$('status').textContent='Backend not connected: '+e.message});
+})();
+</script>
+</body>
+</html>
