@@ -117,7 +117,7 @@ select,input[type=password],input[type=text]{width:100%;background:#0a1a2c;color
     <p class="hint">For this personal GitHub Pages version the key is kept in your browser. Do not use this on a shared computer, and do not put the key inside GitHub source code.</p>
     <label class="row" style="margin:12px 0"><input type="checkbox" id="rememberKey"> Remember on this device</label>
     <label class="label">Gemini model</label>
-    <select id="model"><option value="gemini-2.5-flash">gemini-2.5-flash</option><option value="gemini-2.5-pro">gemini-2.5-pro</option></select>
+    <select id="model"><option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Best quality)</option><option value="gemini-3.5-flash">gemini-3.5-flash (Faster)</option><option value="gemini-3.1-flash-lite">gemini-3.1-flash-lite (Lower cost)</option></select>
     <div class="row" style="margin-top:15px"><button class="secondary" id="testBtn">Test Connection</button><button class="secondary" id="saveBtn">Save</button></div>
     <div class="testline" id="testLine">Not tested yet.</div>
   </div>
@@ -125,7 +125,7 @@ select,input[type=password],input[type=text]{width:100%;background:#0a1a2c;color
 
 <script>
 const $=id=>document.getElementById(id);
-const state={file:null, uploaded:null, apiKey:"", model:"gemini-2.5-flash"};
+const state={file:null, uploaded:null, apiKey:"", model:"gemini-3.1-pro-preview"};
 const API="https://generativelanguage.googleapis.com";
 
 function humanSize(n){const u=["B","KB","MB","GB"];let i=0;while(n>=1024&&i<u.length-1){n/=1024;i++}return n.toFixed(i?1:0)+" "+u[i]}
@@ -135,7 +135,12 @@ function needKey(){if(!key()){setStatus("Please open ⚙ Settings and add your G
 function setTab(name){document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));$("tab-"+name).classList.add("active");document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("active",x.dataset.tab===name))}
 document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
 
-$("settingsBtn").onclick=()=>{$("apiKey").value=key();$("model").value=state.model;$("settingsModal").classList.add("show")}
+$("settingsBtn").onclick=()=>{
+  $("apiKey").value=key();
+  if(state.model==="gemini-2.5-pro" || state.model==="gemini-2.5-flash") state.model="gemini-3.1-pro-preview";
+  $("model").value=state.model;
+  $("settingsModal").classList.add("show");
+}
 $("closeSettings").onclick=()=> $("settingsModal").classList.remove("show");
 $("settingsModal").onclick=e=>{if(e.target===$("settingsModal"))$("settingsModal").classList.remove("show")};
 
