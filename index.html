@@ -1,314 +1,60 @@
+
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Wandee Recap</title>
+<title>Wandee Recap v6</title>
 <style>
-:root{
-  --bg:#071323;--panel:#0b1a2d;--panel2:#0d2037;--line:#24415f;
-  --text:#f5f7fb;--muted:#8fb3da;--cyan:#24d2ff;--blue:#3578ff;
-  --pink:#ef45d1;--purple:#7626e8;--green:#25d694;--red:#ff5d74;--yellow:#ffd24d;
-}
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-button,input,select,textarea{font:inherit}
-.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:18px;padding:12px 28px;background:#06101e;border-bottom:1px solid #18314d}
-.brand{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:800;white-space:nowrap}.logo{width:42px;height:42px;border:1px solid #19c8ff;border-radius:12px;display:grid;place-items:center;color:#2bd6ff;font-weight:900;box-shadow:0 0 18px #0ab3ff22}
-.nav{display:flex;gap:4px;flex:1;overflow:auto}.nav button{border:0;background:transparent;color:#b8c7da;padding:11px 14px;border-radius:24px;cursor:pointer;white-space:nowrap;font-weight:700}.nav button.active{background:linear-gradient(90deg,#11bde9,#3776ff);color:white}
-.settingsBtn{border:1px solid #2a496a;background:#0a1a2e;color:white;padding:10px 15px;border-radius:22px;cursor:pointer;font-weight:800}
-.wrap{max-width:1260px;margin:0 auto;padding:40px 30px 70px}.hero{text-align:center;margin-bottom:24px}.hero h1{font-size:34px;color:var(--pink);margin:4px 0 8px}.hero p{color:#a7c4e6;margin:0}
-.notice{border:1px solid #8b2fd4;background:#25113f;padding:16px 18px;border-radius:14px;color:#f2c7ff;margin:24px 0}
-.grid{display:grid;grid-template-columns:1.05fr 1fr;gap:22px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}.card h3{margin:0 0 12px}
-.drop{min-height:280px;border:1px dashed #3a6085;border-radius:16px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;padding:30px;background:#09182a}.drop:hover{border-color:#36c6ff}.cloud{font-size:48px;opacity:.7}.drop strong{display:block;margin:12px 0 5px;font-size:18px}.muted{color:var(--muted);font-size:14px}
-.filebox{margin-top:14px;border:1px solid #2e4c6c;border-radius:13px;padding:13px;display:none}.row{display:flex;align-items:center;gap:10px}.between{justify-content:space-between}.file-name{font-weight:800}.progress{height:10px;background:#19304b;border-radius:30px;overflow:hidden;margin:12px 0}.bar{height:100%;width:0;background:linear-gradient(90deg,#22c9ff,#7a37ff,#ef3ea8);transition:.2s}
-select,input[type=password],input[type=text]{width:100%;background:#0a1a2c;color:white;border:1px solid #31516f;border-radius:12px;padding:12px 14px}.bigbtn{width:100%;margin-top:16px;min-height:66px;border:0;border-radius:12px;color:white;font-weight:900;font-size:18px;background:linear-gradient(90deg,#6e2bdc,#c91f82);cursor:pointer}.bigbtn:disabled{opacity:.45;cursor:not-allowed}.secondary{border:1px solid #345979;background:#0c2138;color:white;border-radius:10px;padding:9px 12px;cursor:pointer}.danger{border-color:#7e3441;color:#ff9aaa}.status{margin-top:18px;color:#79b9ff;min-height:24px}.status.good{color:#4ee1a1}.status.bad{color:#ff7b8c}
-.result{margin-top:22px}.result-head{display:flex;justify-content:space-between;align-items:center}.result textarea{width:100%;min-height:330px;background:#071629;color:#eaf3ff;border:1px solid #2c4d6f;border-radius:13px;padding:16px;resize:vertical;line-height:1.55}
-.actions{display:flex;gap:7px}.hidden{display:none!important}
-.modal{position:fixed;inset:0;z-index:100;background:#0009;display:none;align-items:center;justify-content:center;padding:22px}.modal.show{display:flex}.modalbox{width:min(660px,100%);background:#0a182a;border:1px solid #355779;border-radius:18px;padding:22px;box-shadow:0 20px 80px #0008}.modalbox h2{margin-top:0}.label{display:block;margin:14px 0 7px;font-weight:800}.hint{font-size:13px;color:#9ab8d9}.testline{margin-top:12px;min-height:22px}
-.tab{display:none}.tab.active{display:block}.simple-panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}.simple-panel textarea{width:100%;min-height:260px;background:#071629;color:white;border:1px solid #2c4d6f;border-radius:12px;padding:15px}
-.pill{display:inline-block;padding:5px 9px;border-radius:999px;background:#15304e;color:#a9cdf4;font-size:12px}
-@media(max-width:900px){.grid{grid-template-columns:1fr}.topbar{padding:10px 12px}.brand span{display:none}.wrap{padding:26px 14px}.hero h1{font-size:28px}.settingsBtn{padding:9px 11px}}
+body{background:#071323;color:white;font-family:Arial;padding:40px}
+.box{background:#102238;padding:25px;border-radius:15px;max-width:700px}
+button{padding:12px 20px;border-radius:10px;background:#2378ff;color:white;border:0}
+textarea{width:100%;height:200px;background:#08192d;color:white}
 </style>
 </head>
 <body>
-<header class="topbar">
-  <div class="brand"><div class="logo">WR</div><span>Wandee Recap</span></div>
-  <nav class="nav" id="nav">
-    <button data-tab="voice">🔊 Voiceover</button>
-    <button data-tab="transcript" class="active">✨ Auto Transcript</button>
-    <button data-tab="srt">▣ SRT Generator</button>
-    <button data-tab="script">📜 Script Writer</button>
-    <button data-tab="translate">🌐 Shorts Translator</button>
-    <button data-tab="thumb">🖼 Thumbnail Maker</button>
-    <button data-tab="logo">⌫ Logo Remover</button>
-  </nav>
-  <button class="settingsBtn" id="settingsBtn">⚙ Settings</button>
-</header>
+<div class="box">
+<h1>Wandee Recap v6</h1>
 
-<main class="wrap">
-<section class="tab active" id="tab-transcript">
-  <div class="hero"><h1>✨ Auto Transcript Studio</h1><p>Upload video/audio to Gemini Files API and generate a transcript.</p></div>
-  <div class="notice">Beginner mode: <b>1) Settings → 2) Test API → 3) Choose file → 4) Upload → 5) Generate.</b> The video is uploaded directly from your browser to Gemini. Gemini Files API supports up to 2 GB per file.</div>
-  <div class="grid">
-    <div class="card">
-      <h3>Video / Audio</h3>
-      <input id="fileInput" type="file" accept="video/*,audio/*" hidden>
-      <div class="drop" id="drop">
-        <div><div class="cloud">☁</div><strong>Click to choose a video or audio file</strong><div class="muted">MP4, WebM, MOV, MPEG, MP3, WAV, M4A • up to 2 GB</div></div>
-      </div>
-      <div class="filebox" id="filebox">
-        <div class="row between"><div><div class="file-name" id="fileName"></div><div class="muted" id="fileMeta"></div></div><button class="secondary danger" id="clearFile">Clear</button></div>
-        <div class="progress"><div class="bar" id="uploadBar"></div></div>
-        <div class="muted" id="fileStatus">Selected. Not uploaded yet.</div>
-        <button class="bigbtn" id="uploadBtn" style="background:linear-gradient(90deg,#0ba9d5,#276af0)">⬆ Upload to Gemini</button>
-      </div>
-    </div>
-    <div class="card">
-      <h3>Output Language</h3>
-      <select id="language">
-        <option>Myanmar</option><option>English</option><option>Thai</option><option>Chinese</option><option>Japanese</option><option>Korean</option>
-      </select>
-      <button class="bigbtn" id="generateBtn" disabled>✨ Generate Transcript</button>
-      <div class="status" id="status">Open ⚙ Settings first and connect your Gemini API key.</div>
-    </div>
-  </div>
-  <div class="card result">
-    <div class="result-head"><h3>Transcript</h3><div class="actions"><button class="secondary" id="copyBtn">Copy</button><button class="secondary" id="downloadBtn">Download</button></div></div>
-    <textarea id="output" placeholder="Result appears here..."></textarea>
-  </div>
-</section>
+<p>This version uses Google Apps Script backend.</p>
 
-<section class="tab" id="tab-srt">
-  <div class="hero"><h1 style="color:#42b7ff">▣ SRT Generator</h1><p>Use a transcript to make subtitle text.</p></div>
-  <div class="simple-panel"><p class="muted">First use Auto Transcript. Then paste or keep your transcript below and convert it to SRT style.</p><textarea id="srtInput" placeholder="Paste transcript here..."></textarea><button class="bigbtn" id="srtBtn" style="background:linear-gradient(90deg,#1768eb,#08a7ce)">Generate SRT Text</button><textarea id="srtOutput" placeholder="SRT appears here..." style="margin-top:14px"></textarea></div>
-</section>
+<input id="url" placeholder="Apps Script Web App URL" style="width:100%;padding:10px">
 
-<section class="tab" id="tab-script">
-  <div class="hero"><h1 style="color:#ff5d74">📜 AI Script Writer</h1><p>Turn a transcript into a movie recap script.</p></div>
-  <div class="simple-panel"><textarea id="scriptInput" placeholder="Paste transcript here..."></textarea><div class="row" style="margin-top:12px"><select id="scriptLang"><option>Myanmar</option><option>English</option><option>Thai</option><option>Chinese</option></select></div><button class="bigbtn" id="scriptBtn" style="background:linear-gradient(90deg,#b31246,#d23654)">Generate Movie Recap Script</button><textarea id="scriptOutput" placeholder="Recap script appears here..." style="margin-top:14px"></textarea></div>
-</section>
+<br><br>
 
-<section class="tab" id="tab-translate">
-  <div class="hero"><h1 style="color:#ffc13b">🌐 Shorts Translator</h1><p>Translate a transcript for Shorts/Reels.</p></div>
-  <div class="simple-panel"><textarea id="translateInput" placeholder="Paste transcript here..."></textarea><select id="translateLang" style="margin-top:12px"><option>Myanmar</option><option>English</option><option>Thai</option><option>Chinese</option><option>Japanese</option></select><button class="bigbtn" id="translateBtn" style="background:linear-gradient(90deg,#9b5a10,#d27a16)">Translate</button><textarea id="translateOutput" placeholder="Translation appears here..." style="margin-top:14px"></textarea></div>
-</section>
+<button onclick="test()">Test Backend</button>
 
-<section class="tab" id="tab-voice">
-  <div class="hero"><h1 style="color:#42d5ff">🔊 Voiceover</h1><p>Simple browser voice preview.</p></div>
-  <div class="simple-panel"><textarea id="voiceText" placeholder="Paste narration text here..."></textarea><button class="bigbtn" id="speakBtn" style="background:linear-gradient(90deg,#0c9ec0,#2475ff)">▶ Speak in Browser</button><p class="muted">Browser speech quality depends on voices installed on your device. AI Myanmar TTS can be added later.</p></div>
-</section>
+<h3>Prompt</h3>
+<textarea id="p">Create a Myanmar movie recap script.</textarea>
 
-<section class="tab" id="tab-thumb">
-  <div class="hero"><h1 style="color:#31d8a6">🖼 Thumbnail Maker</h1><p>Thumbnail prompt helper.</p></div>
-  <div class="simple-panel"><input id="thumbTitle" type="text" placeholder="Thumbnail title"><button class="bigbtn" id="thumbBtn" style="background:linear-gradient(90deg,#0b8c72,#11b293)">Create Professional Prompt</button><textarea id="thumbOutput" placeholder="Prompt appears here..." style="margin-top:14px"></textarea></div>
-</section>
+<button onclick="generate()">Generate</button>
 
-<section class="tab" id="tab-logo">
-  <div class="hero"><h1 style="color:#31d8c1">⌫ Logo Remover</h1><p>Coming next after the core video workflow is stable.</p></div>
-  <div class="notice">For safety and reliability, this build focuses first on getting large uploads, transcripts, SRT, scripts and translations working correctly.</div>
-</section>
-</main>
+<h3>Result</h3>
+<textarea id="r"></textarea>
 
-<div class="modal" id="settingsModal">
-  <div class="modalbox">
-    <div class="row between"><h2>⚙ Wandee Recap Settings</h2><button class="secondary" id="closeSettings">✕</button></div>
-    <label class="label">Gemini API Key</label>
-    <input type="password" id="apiKey" placeholder="Paste your Gemini API key here">
-    <p class="hint">For this personal GitHub Pages version the key is kept in your browser. Do not use this on a shared computer, and do not put the key inside GitHub source code.</p>
-    <label class="row" style="margin:12px 0"><input type="checkbox" id="rememberKey"> Remember on this device</label>
-    <label class="label">Gemini model</label>
-    <select id="model"><option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Best quality)</option><option value="gemini-3.5-flash">gemini-3.5-flash (Faster)</option><option value="gemini-3.1-flash-lite">gemini-3.1-flash-lite (Lower cost)</option></select>
-    <div class="row" style="margin-top:15px"><button class="secondary" id="testBtn">Test Connection</button><button class="secondary" id="saveBtn">Save</button></div>
-    <div class="testline" id="testLine">Not tested yet.</div>
-  </div>
 </div>
 
 <script>
-const $=id=>document.getElementById(id);
-const state={file:null, uploaded:null, apiKey:"", model:"gemini-3.1-pro-preview"};
-const API="https://generativelanguage.googleapis.com";
-
-function humanSize(n){const u=["B","KB","MB","GB"];let i=0;while(n>=1024&&i<u.length-1){n/=1024;i++}return n.toFixed(i?1:0)+" "+u[i]}
-function setStatus(t,kind=""){const e=$("status");e.textContent=t;e.className="status "+kind}
-function key(){return state.apiKey || sessionStorage.getItem("wandee_key") || localStorage.getItem("wandee_key") || ""}
-function needKey(){if(!key()){setStatus("Please open ⚙ Settings and add your Gemini API key.","bad");$("settingsModal").classList.add("show");return false}return true}
-function setTab(name){document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));$("tab-"+name).classList.add("active");document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("active",x.dataset.tab===name))}
-document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
-
-$("settingsBtn").onclick=()=>{
-  $("apiKey").value=key();
-  if(state.model==="gemini-2.5-pro" || state.model==="gemini-2.5-flash") state.model="gemini-3.1-pro-preview";
-  $("model").value=state.model;
-  $("settingsModal").classList.add("show");
-}
-$("closeSettings").onclick=()=> $("settingsModal").classList.remove("show");
-$("settingsModal").onclick=e=>{if(e.target===$("settingsModal"))$("settingsModal").classList.remove("show")};
-
-$("saveBtn").onclick=()=>{
-  const k=$("apiKey").value.trim(); state.apiKey=k; state.model=$("model").value;
-  sessionStorage.setItem("wandee_key",k);
-  if($("rememberKey").checked)localStorage.setItem("wandee_key",k); else localStorage.removeItem("wandee_key");
-  $("settingsModal").classList.remove("show");
-  setStatus(k?"API key saved. Choose a file.":"API key is empty.","good");
-};
-
-$("testBtn").onclick=async()=>{
-  const k=$("apiKey").value.trim(); if(!k){$("testLine").textContent="❌ Paste an API key first.";return}
-  $("testLine").textContent="Testing...";
-  try{
-    const r=await fetch(`${API}/v1beta/models?key=${encodeURIComponent(k)}`);
-    const j=await r.json();
-    if(!r.ok) throw new Error(j?.error?.message||("HTTP "+r.status));
-    $("testLine").textContent=`✅ Connected. ${j.models?.length||0} models visible.`;
-  }catch(err){$("testLine").textContent="❌ "+err.message}
-};
-
-$("drop").onclick=()=> $("fileInput").click();
-$("drop").ondragover=e=>{e.preventDefault();e.dataTransfer.dropEffect="copy"};
-$("drop").ondrop=e=>{e.preventDefault();if(e.dataTransfer.files[0])chooseFile(e.dataTransfer.files[0])};
-$("fileInput").onchange=e=>{if(e.target.files[0])chooseFile(e.target.files[0])};
-
-function chooseFile(f){
-  if(f.size>2*1024*1024*1024){alert("File is larger than 2 GB.");return}
-  state.file=f; state.uploaded=null;
-  $("fileName").textContent=f.name;$("fileMeta").textContent=`${humanSize(f.size)} • ${f.type||"unknown type"}`;
-  $("filebox").style.display="block";$("uploadBar").style.width="0%";$("fileStatus").textContent="Selected. Click Upload to Gemini.";
-  $("generateBtn").disabled=true;setStatus("File selected. Click “Upload to Gemini”.");
-}
-$("clearFile").onclick=()=>{state.file=null;state.uploaded=null;$("fileInput").value="";$("filebox").style.display="none";$("generateBtn").disabled=true;setStatus("Choose a file.");};
-
-async function startUpload(file,k){
-  const r=await fetch(`${API}/upload/v1beta/files?key=${encodeURIComponent(k)}`,{
-    method:"POST",
-    headers:{
-      "X-Goog-Upload-Protocol":"resumable",
-      "X-Goog-Upload-Command":"start",
-      "X-Goog-Upload-Header-Content-Length":String(file.size),
-      "X-Goog-Upload-Header-Content-Type":file.type||"application/octet-stream",
-      "Content-Type":"application/json"
-    },
-    body:JSON.stringify({file:{display_name:file.name}})
-  });
-  if(!r.ok){let x={};try{x=await r.json()}catch{};throw new Error(x?.error?.message||`Could not start upload (HTTP ${r.status})`)}
-  const url=r.headers.get("x-goog-upload-url");
-  if(!url) throw new Error("Gemini did not return an upload URL. Browser/CORS may be blocking the upload session.");
-  return url;
+async function test(){
+ let u=document.getElementById("url").value;
+ let x=await fetch(u,{method:"POST",
+ body:JSON.stringify({action:"test"})});
+ alert(await x.text());
 }
 
-function xhrUpload(url,file){
-  return new Promise((resolve,reject)=>{
-    const x=new XMLHttpRequest();
-    x.open("POST",url,true);
-    x.setRequestHeader("Content-Length",String(file.size));
-    x.setRequestHeader("X-Goog-Upload-Offset","0");
-    x.setRequestHeader("X-Goog-Upload-Command","upload, finalize");
-    x.upload.onprogress=e=>{
-      if(e.lengthComputable){
-        const p=(e.loaded/e.total*100);
-        $("uploadBar").style.width=p.toFixed(1)+"%";
-        $("fileStatus").textContent=`Uploading ${humanSize(e.loaded)} / ${humanSize(e.total)} (${p.toFixed(1)}%)`;
-      }
-    };
-    x.onload=()=>{
-      if(x.status>=200&&x.status<300){try{resolve(JSON.parse(x.responseText))}catch{reject(new Error("Upload finished but response was unreadable."))}}
-      else reject(new Error(`Upload failed (HTTP ${x.status}): ${x.responseText.slice(0,500)}`));
-    };
-    x.onerror=()=>reject(new Error("Browser network/CORS error during upload."));
-    x.send(file);
-  });
+async function generate(){
+ let u=document.getElementById("url").value;
+ let p=document.getElementById("p").value;
+
+ let x=await fetch(u,{
+ method:"POST",
+ body:JSON.stringify({
+ action:"generate",
+ prompt:p
+ })
+ });
+
+ let j=await x.json();
+ document.getElementById("r").value=j.text||j.error;
 }
-
-async function waitReady(name,k){
-  for(let i=0;i<120;i++){
-    const r=await fetch(`${API}/v1beta/${name}?key=${encodeURIComponent(k)}`);
-    const j=await r.json();
-    if(!r.ok) throw new Error(j?.error?.message||`File status error ${r.status}`);
-    const s=j.state||"ACTIVE";
-    $("fileStatus").textContent=`Gemini processing: ${s}`;
-    if(s==="ACTIVE"||!j.state)return j;
-    if(s==="FAILED")throw new Error("Gemini could not process this media file.");
-    await new Promise(r=>setTimeout(r,3000));
-  }
-  throw new Error("Timed out waiting for Gemini to process the file.");
-}
-
-$("uploadBtn").onclick=async()=>{
-  if(!state.file)return; if(!needKey())return;
-  const k=key(); $("uploadBtn").disabled=true;$("generateBtn").disabled=true;
-  try{
-    $("fileStatus").textContent="Starting secure Gemini upload…";setStatus("Uploading file…");
-    const url=await startUpload(state.file,k);
-    const done=await xhrUpload(url,state.file);
-    const info=await waitReady(done.file.name,k);
-    state.uploaded=info;
-    $("uploadBar").style.width="100%";$("fileStatus").textContent="✅ Ready on Gemini";
-    $("generateBtn").disabled=false;setStatus("Upload complete. You can generate the transcript now.","good");
-  }catch(err){$("fileStatus").textContent="❌ "+err.message;setStatus(err.message,"bad")}
-  finally{$("uploadBtn").disabled=false}
-};
-
-async function generateWithFile(prompt){
-  if(!state.uploaded)throw new Error("Upload a file first.");
-  const k=key(), model=state.model;
-  const body={contents:[{role:"user",parts:[
-    {text:prompt},
-    {file_data:{mime_type:state.uploaded.mimeType||state.uploaded.mime_type||state.file.type,file_uri:state.uploaded.uri}}
-  ]}]};
-  const r=await fetch(`${API}/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(k)}`,{
-    method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)
-  });
-  const j=await r.json(); if(!r.ok)throw new Error(j?.error?.message||`Gemini error ${r.status}`);
-  const t=(j.candidates||[]).flatMap(c=>c.content?.parts||[]).map(p=>p.text||"").join("\n").trim();
-  if(!t)throw new Error("Gemini returned no text.");
-  return t;
-}
-
-async function textGenerate(prompt){
-  if(!needKey())throw new Error("No API key");
-  const k=key(), model=state.model;
-  const r=await fetch(`${API}/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(k)}`,{
-    method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
-  });
-  const j=await r.json(); if(!r.ok)throw new Error(j?.error?.message||`Gemini error ${r.status}`);
-  return (j.candidates||[]).flatMap(c=>c.content?.parts||[]).map(p=>p.text||"").join("\n").trim();
-}
-
-$("generateBtn").onclick=async()=>{
-  if(!needKey())return;
-  $("generateBtn").disabled=true;setStatus("Gemini is analyzing the media…");
-  try{
-    const lang=$("language").value;
-    const p=`Transcribe all spoken dialogue and narration in this media accurately. Preserve the correct order. Output the transcript in ${lang}. If the original language is different, translate naturally into ${lang}. Do not summarize. Include useful speaker labels only when clear.`;
-    const t=await generateWithFile(p);$("output").value=t;
-    $("srtInput").value=t;$("scriptInput").value=t;$("translateInput").value=t;
-    setStatus("✅ Transcript finished.","good");
-  }catch(err){setStatus("❌ "+err.message,"bad")}
-  finally{$("generateBtn").disabled=false}
-};
-
-$("copyBtn").onclick=async()=>{await navigator.clipboard.writeText($("output").value||"");setStatus("Copied.","good")};
-$("downloadBtn").onclick=()=>{const b=new Blob([$(`output`).value],{type:"text/plain;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="wandee-transcript.txt";a.click();URL.revokeObjectURL(a.href)};
-
-$("srtBtn").onclick=async()=>{
-  try{$("srtBtn").disabled=true;$("srtOutput").value=await textGenerate(`Convert this transcript into valid SRT subtitles. Use sequential numbering and reasonable timestamps. Output only SRT, no markdown.\n\nTRANSCRIPT:\n${$("srtInput").value}`)}
-  catch(e){$("srtOutput").value="ERROR: "+e.message}finally{$("srtBtn").disabled=false}
-};
-$("scriptBtn").onclick=async()=>{
-  try{$("scriptBtn").disabled=true;$("scriptOutput").value=await textGenerate(`Write a compelling movie recap narration in ${$("scriptLang").value}. Keep the story chronological, clear, engaging, and suitable for voiceover. Do not invent events not in the transcript.\n\nTRANSCRIPT:\n${$("scriptInput").value}`)}
-  catch(e){$("scriptOutput").value="ERROR: "+e.message}finally{$("scriptBtn").disabled=false}
-};
-$("translateBtn").onclick=async()=>{
-  try{$("translateBtn").disabled=true;$("translateOutput").value=await textGenerate(`Translate the following transcript naturally into ${$("translateLang").value}. Preserve meaning and names. Output only the translation.\n\n${$("translateInput").value}`)}
-  catch(e){$("translateOutput").value="ERROR: "+e.message}finally{$("translateBtn").disabled=false}
-};
-$("speakBtn").onclick=()=>{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance($("voiceText").value);speechSynthesis.speak(u)};
-$("thumbBtn").onclick=()=>{$("thumbOutput").value=`Create a cinematic YouTube thumbnail, 16:9, dramatic movie-recap composition, strong subject separation, high contrast lighting, bold readable title text: "${$("thumbTitle").value||"MOVIE RECAP"}", professional entertainment channel style, no watermark.`};
-
-window.addEventListener("load",()=>{
-  const k=localStorage.getItem("wandee_key")||sessionStorage.getItem("wandee_key")||"";
-  if(k){state.apiKey=k;setStatus("API key found. Choose a file.","good")}else setStatus("Open ⚙ Settings and add your Gemini API key.");
-});
 </script>
 </body>
 </html>
